@@ -63,7 +63,7 @@
     \justify {
       Middle C is one of the most important notes on the piano. It sits on a short line
       called a "ledger line" just below the treble clef staff. On the piano keyboard,
-      Middle C is located roughly in the center of the keyboard.
+      Middle C is located roughly in the centre of the keyboard.
     }
     \vspace #0.5
     \italic "How to recognise Middle C:"
@@ -81,17 +81,21 @@
   } {
     \clef treble
     \time 4/4
-    % Crotchet (quarter note)
-    c'4^\markup { \small "Crotchet" } r4 r2 \bar "||"
-    % Minim (half note)
+    % Crotchet
+    c'4^\markup { \small "Crotchet" } r2. \bar "||"
+    % Minim
     c'2^\markup { \small "Minim" } r2 \bar "||"
-    % Dotted minim (dotted half note)
-    c'2.^\markup { \small "Dotted Minim" } r4 \bar "||"
-    % Semibreve (whole note)
+    % Dotted minim
+    c'2.^\markup { \small \column { "Dotted" "Minim" } } r4 \bar "||"
+    % Semibreve
     c'1^\markup { \small "Semibreve" } \bar "|."
   }
   \layout {
     indent = 15\mm
+    \context {
+      \Score
+      \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1/2)
+    }
   }
 }
 
@@ -125,17 +129,21 @@
   } {
     \clef treble
     \time 4/4
-    % Crotchet (quarter note)
-    d'4^\markup { \small "Crotchet" } r4 r2 \bar "||"
-    % Minim (half note)
+    % Crotchet
+    d'4^\markup { \small "Crotchet" } r2. \bar "||"
+    % Minim
     d'2^\markup { \small "Minim" } r2 \bar "||"
-    % Dotted minim (dotted half note)
-    d'2.^\markup { \small "Dotted Minim" } r4 \bar "||"
-    % Semibreve (whole note)
+    % Dotted minim
+    d'2.^\markup { \small \column { "Dotted" "Minim" } } r4 \bar "||"
+    % Semibreve
     d'1^\markup { \small "Semibreve" } \bar "|."
   }
   \layout {
     indent = 15\mm
+    \context {
+      \Score
+      \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1/2)
+    }
   }
 }
 
@@ -168,17 +176,21 @@
   } {
     \clef bass
     \time 4/4
-    % Crotchet (quarter note)
-    b4^\markup { \small "Crotchet" } r4 r2 \bar "||"
-    % Minim (half note)
+    % Crotchet
+    b4^\markup { \small "Crotchet" } r2. \bar "||"
+    % Minim
     b2^\markup { \small "Minim" } r2 \bar "||"
-    % Dotted minim (dotted half note)
-    b2.^\markup { \small "Dotted Minim" } r4 \bar "||"
-    % Semibreve (whole note)
+    % Dotted minim
+    b2.^\markup { \small \column { "Dotted" "Minim" } } r4 \bar "||"
+    % Semibreve
     b1^\markup { \small "Semibreve" } \bar "|."
   }
   \layout {
     indent = 15\mm
+    \context {
+      \Score
+      \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 1/2)
+    }
   }
 }
 
