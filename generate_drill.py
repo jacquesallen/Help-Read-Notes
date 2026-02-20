@@ -5,12 +5,16 @@ Generate a sight-singing / music-reading drill MP3.
 Produces one MP3 containing 14 questions (one sharp and one flat for each
 note letter A-G) in randomized order.  Each question follows this pattern:
 
-  1. TTS: "This note is <LETTER>."
-  2. Sustained tone for the base letter pitch (1.0 s, sine wave, octave 4)
-  3. TTS: "What would <LETTER> sharp/flat sound like?"
-  4. 4-second silent thinking pause
-  5. TTS: "Did you get it?"
-  6. 0.75-second gap before next question
+  1. TTS: "Question N:"                          (brief pause)
+  2. TTS: "This note is <LETTER>."                (brief pause)
+  3. Sustained tone for the base letter pitch (1.0 s, sine wave, octave 4)
+  4. Brief pause
+  5. TTS: "What would <LETTER> sharp/flat sound like?"
+  6. 4-second silent thinking pause
+  7. TTS: "The answer is"                         (brief pause)
+  8. Sustained tone for the answer pitch (1.0 s)  (brief pause)
+  9. TTS: "Did you get it?"
+ 10. 2-second gap before next question
 
 Usage:
     python generate_drill.py [--seed SEED] [--output FILE] [--order FILE]
@@ -62,8 +66,9 @@ LETTERS = list("ABCDEFG")
 ACCIDENTALS = ["sharp", "flat"]
 
 TONE_DURATION_S = 1.0       # seconds for sustained pitch
+BRIEF_PAUSE_S = 0.8         # short pause between speech and tones
 THINK_PAUSE_S = 4.0         # seconds of silence for thinking
-GAP_S = 0.75                # seconds gap between questions
+GAP_S = 2.0                 # seconds gap between questions
 
 
 # ---------------------------------------------------------------------------
@@ -132,9 +137,9 @@ def mp3_bytes_to_segment(mp3_data: bytes) -> AudioSegment:
     )
 
 
-def tts_to_segment(text: str) -> AudioSegment:
+def tts_to_segment(text: str, slow: bool = True) -> AudioSegment:
     """Convert text to speech using gTTS and return as AudioSegment."""
-    tts = gTTS(text=text, lang="en", slow=False)
+    tts = gTTS(text=text, lang="en", slow=slow)
     buf = io.BytesIO()
     tts.write_to_fp(buf)
     return mp3_bytes_to_segment(buf.getvalue())
@@ -157,46 +162,81 @@ def build_questions() -> list[dict]:
     return questions
 
 
+def get_answer_freq(letter: str, accidental: str) -> float:
+    """Return the frequency of the sharp/flat version of a note."""
+    midi = MIDI_NOTES[letter]
+    if accidental == "sharp":
+        midi += 1
+    else:  # flat
+        midi -= 1
+    return 440.0 * (2.0 ** ((midi - 69) / 12.0))
+
+
 def render_question(q: dict, index: int, total: int) -> AudioSegment:
     """Render a single question to an AudioSegment.
 
     Structure:
-      1. TTS: "This note is <LETTER>."
-      2. Sustained tone for base letter (1.0 s)
-      3. TTS: "What would <LETTER> sharp/flat sound like?"
-      4. 4 s thinking silence
-      5. TTS: "Did you get it?"
-      6. 0.75 s gap
+      1.  TTS: "Question N:"                      (brief pause)
+      2.  TTS: "This note is <LETTER>."            (brief pause)
+      3.  Sustained tone for base letter (1.0 s)   (brief pause)
+      4.  TTS: "What would <LETTER> sharp/flat sound like?"
+      5.  4 s thinking silence
+      6.  TTS: "The answer is"                     (brief pause)
+      7.  Sustained answer tone (1.0 s)            (brief pause)
+      8.  TTS: "Did you get it?"
+      9.  2 s gap before next question
     """
     letter = q["letter"]
     accidental = q["accidental"]
+    question_num = index + 1
+    brief = generate_silence(BRIEF_PAUSE_S)
 
-    print(f"  [{index + 1}/{total}] Generating: {q['label']} "
+    print(f"  [{question_num}/{total}] Generating: {q['label']} "
           f"({letter} {accidental})...")
 
-    # 1) Announcement
+    # 1) Question number
+    seg_number = tts_to_segment(f"Question {question_num}.")
+
+    # 2) Announcement
     seg_announce = tts_to_segment(f"This note is {letter}.")
 
-    # 2) Sustained tone
+    # 3) Sustained base tone
     freq = FREQ_TABLE[letter]
     seg_tone = generate_sine_tone(freq, TONE_DURATION_S)
 
-    # 3) Question
+    # 4) Question
     seg_question = tts_to_segment(
         f"What would {letter} {accidental} sound like?"
     )
 
-    # 4) Thinking pause
+    # 5) Thinking pause
     seg_think = generate_silence(THINK_PAUSE_S)
 
-    # 5) "Did you get it?"
+    # 6) "The answer is"
+    seg_answer_intro = tts_to_segment("The answer is")
+
+    # 7) Answer tone
+    answer_freq = get_answer_freq(letter, accidental)
+    seg_answer_tone = generate_sine_tone(answer_freq, TONE_DURATION_S)
+
+    # 8) "Did you get it?"
     seg_confirm = tts_to_segment("Did you get it?")
 
-    # 6) Gap before next question
+    # 9) Gap before next question
     seg_gap = generate_silence(GAP_S)
 
-    # Concatenate all pieces
-    return seg_announce + seg_tone + seg_question + seg_think + seg_confirm + seg_gap
+    # Concatenate all pieces with brief pauses
+    return (
+        seg_number + brief
+        + seg_announce + brief
+        + seg_tone + brief
+        + seg_question
+        + seg_think
+        + seg_answer_intro + brief
+        + seg_answer_tone + brief
+        + seg_confirm
+        + seg_gap
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -293,7 +333,14 @@ def main():
     print(f"  Seed:     {seed}")
 
     # Final verification
-    expected_min_s = 14 * (0.5 + TONE_DURATION_S + 1.0 + THINK_PAUSE_S + 0.5 + GAP_S)
+    # Rough minimum: question_num(0.5) + brief + announce(0.5) + brief + tone + brief
+    #   + question(1.0) + think + answer_intro(0.5) + brief + answer_tone + brief
+    #   + confirm(0.5) + gap
+    expected_min_s = 14 * (
+        0.5 + BRIEF_PAUSE_S + 0.5 + BRIEF_PAUSE_S + TONE_DURATION_S
+        + BRIEF_PAUSE_S + 1.0 + THINK_PAUSE_S + 0.5 + BRIEF_PAUSE_S
+        + TONE_DURATION_S + BRIEF_PAUSE_S + 0.5 + GAP_S
+    )
     assert duration_s >= expected_min_s, (
         f"Duration {duration_s:.1f}s seems too short "
         f"(expected at least ~{expected_min_s:.0f}s)"
