@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Piano Recital Programme — St. Helen's RC Primary School</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lora:ital,wght@0,400;0,500;1,400&family=Great+Vibes&display=swap');
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  @page {
+    size: A4;
+    margin: 0;
+  }
+
+  body {
+    font-family: 'Lora', Georgia, serif;
+    color: #2c2c2c;
+    background: #f5f0eb;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .programme {
+    width: 210mm;
+    min-height: 297mm;
+    background: #fffef9;
+    padding: 50px 60px 40px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  }
+
+  /* Decorative border */
+  .programme::before {
+    content: '';
+    position: absolute;
+    top: 18px; left: 18px; right: 18px; bottom: 18px;
+    border: 2px solid #b8960c;
+    border-radius: 4px;
+    pointer-events: none;
+  }
+
+  .programme::after {
+    content: '';
+    position: absolute;
+    top: 22px; left: 22px; right: 22px; bottom: 22px;
+    border: 1px solid #d4b94e;
+    border-radius: 3px;
+    pointer-events: none;
+  }
+
+  /* Header section */
+  .header {
+    text-align: center;
+    margin-bottom: 10px;
+    padding-bottom: 20px;
+  }
+
+  .music-symbol {
+    font-size: 36px;
+    color: #b8960c;
+    letter-spacing: 12px;
+    margin-bottom: 8px;
+  }
+
+  .school-name {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 15px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    color: #6b5a3e;
+    margin-bottom: 16px;
+  }
+
+  .presents {
+    font-family: 'Lora', Georgia, serif;
+    font-style: italic;
+    font-size: 13px;
+    color: #8a7a60;
+    margin-bottom: 14px;
+  }
+
+  .title {
+    font-family: 'Great Vibes', cursive;
+    font-size: 52px;
+    color: #2c2419;
+    line-height: 1.2;
+    margin-bottom: 6px;
+  }
+
+  .subtitle {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 13px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #8a7a60;
+    margin-bottom: 18px;
+  }
+
+  .event-details {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    font-size: 13px;
+    color: #5a4e3c;
+  }
+
+  .event-details .detail {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .divider-ornament {
+    text-align: center;
+    color: #b8960c;
+    font-size: 20px;
+    margin: 16px 0;
+    letter-spacing: 8px;
+  }
+
+  /* Programme list */
+  .programme-heading {
+    text-align: center;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    color: #6b5a3e;
+    margin-bottom: 20px;
+  }
+
+  .performers {
+    list-style: none;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  .performer {
+    display: flex;
+    align-items: baseline;
+    padding: 7px 0;
+    font-size: 13.5px;
+    line-height: 1.5;
+  }
+
+  .performer-number {
+    flex-shrink: 0;
+    width: 28px;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 600;
+    color: #b8960c;
+    font-size: 13px;
+  }
+
+  .performer-name {
+    flex-shrink: 0;
+    font-weight: 500;
+    color: #2c2419;
+    min-width: 160px;
+  }
+
+  .performer-age {
+    font-size: 11.5px;
+    color: #9a8b70;
+    font-style: italic;
+    margin-left: 2px;
+  }
+
+  .dots {
+    flex: 1;
+    border-bottom: 1px dotted #cdbfa3;
+    margin: 0 8px;
+    min-width: 20px;
+    position: relative;
+    top: -3px;
+  }
+
+  .performer-piece {
+    flex-shrink: 0;
+    font-style: italic;
+    color: #5a4e3c;
+    text-align: right;
+  }
+
+  /* Interval */
+  .interval {
+    text-align: center;
+    margin: 14px 0;
+    padding: 8px 0;
+    position: relative;
+  }
+
+  .interval::before,
+  .interval::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 30%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #d4b94e, transparent);
+  }
+
+  .interval::before { left: 5%; }
+  .interval::after { right: 5%; }
+
+  .interval span {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    color: #8a7a60;
+    background: #fffef9;
+    padding: 0 16px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    margin-top: 24px;
+    padding-top: 16px;
+  }
+
+  .footer-ornament {
+    color: #b8960c;
+    font-size: 18px;
+    letter-spacing: 6px;
+    margin-bottom: 12px;
+  }
+
+  .footer p {
+    font-size: 11.5px;
+    color: #8a7a60;
+    line-height: 1.8;
+    font-style: italic;
+  }
+
+  .footer .thank-you {
+    font-family: 'Great Vibes', cursive;
+    font-size: 26px;
+    color: #6b5a3e;
+    margin-top: 10px;
+    font-style: normal;
+  }
+
+  /* Print styles */
+  @media print {
+    body {
+      background: none;
+      padding: 0;
+    }
+    .programme {
+      box-shadow: none;
+      width: 100%;
+      height: 100%;
+      padding: 45px 55px 35px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="programme">
+
+  <div class="header">
+    <div class="music-symbol">&#9835; &#9834; &#9835;</div>
+    <div class="school-name">St. Helen's RC Primary School</div>
+    <div class="presents">proudly presents</div>
+    <div class="title">Piano Recital</div>
+    <div class="subtitle">Main Hall</div>
+    <div class="event-details">
+      <span class="detail">Monday 23rd March 2026</span>
+      <span style="color:#b8960c;">&#8226;</span>
+      <span class="detail">2:30 PM</span>
+    </div>
+  </div>
+
+  <div class="divider-ornament">&#10045; &#10043; &#10045;</div>
+
+  <div class="programme-heading">Programme</div>
+
+  <ol class="performers">
+    <li class="performer">
+      <span class="performer-number">1.</span>
+      <span class="performer-name">Robert <span class="performer-age">(10)</span></span>
+      <span class="dots"></span>
+      <span class="performer-piece">Three Blind Mice</span>
+    </li>
+    <li class="performer">
+      <span class="performer-number">2.</span>
+      <span class="performer-name">Amilija <span class="performer-age">(10)</span></span>
+      <span class="dots"></span>
+      <span class="performer-piece">Through the Woods</span>
+    </li>
+    <li class="performer">
+      <span class="performer-number">3.</span>
+      <span class="performer-name">Harrison <span class="performer-age">(7)</span></span>
+      <span class="dots"></span>
+      <span class="performer-piece">Lightly Row</span>
+    </li>
+    <li class="performer">
+      <span class="performer-number">4.</span>
+      <span class="performer-name">Stephen <span class="performer-age">(10)</span></span>
+      <span class="dots"></span>
+      <span class="performer-piece">Princess Waltz</span>
+    </li>
+    <li class="performer">
+      <span class="performer-number">5.</span>
+      <span class="performer-name">Yohanan <span class="performer-age">(5)</span></span>
+      <span class="dots"></span>
+      <span class="performer-piece">Mary Had a Little Lamb</span>
+    </li>
+    <li class="performer">
+      <span class="performer-number">6.</span>
+      <span class="performer-name">Anaiya-Rose <span class="performer-age">(5)</span></span>
+      <span class="dots"></span>
+      <span class="performer-piece">Funny Faces</span>
+    </li>
+    <li class="performer">
+      <span class="performer-number">7.</span>
+      <span class="performer-name">Heavenly <span class="performer-age">(9)</span></span>
+      <span class="dots"></span>
+      <span class="performer-piece">The Chimes</span>
+    </li>
+    <li class="performer">
+      <span class="performer-number">8.</span>
+      <span class="performer-name">Rebekah <span class="performer-age">(10)</span></span>
+      <span class="dots"></span>
+      <span class="performer-piece">Nobody Knows the Trouble I've Seen</span>
+    </li>
+    <li class="performer">
+      <span class="performer-number">9.</span>
+      <span class="performer-name">Felipe <span class="performer-age">(7)</span></span>
+      <span class="dots"></span>
+      <span class="performer-piece">Old Macdonald</span>
+    </li>
+  </ol>
+
+  <div class="interval">
+    <span>~ Interval ~</span>
+  </div>
+
+  <ol class="performers" start="10">
+    <li class="performer">
+      <span class="performer-number">10.</span>
+      <span class="performer-name">Aksah <span class="performer-age">(6)</span></span>
+      <span class="dots"></span>
+      <span class="performer-piece">Mary Had a Little Lamb</span>
+    </li>
+    <li class="performer">
+      <span class="performer-number">11.</span>
+      <span class="performer-name">William <span class="performer-age">(7)</span></span>
+      <span class="dots"></span>
+      <span class="performer-piece">The Church Organ</span>
+    </li>
+    <li class="performer">
+      <span class="performer-number">12.</span>
+      <span class="performer-name">Destiny <span class="performer-age">(6)</span></span>
+      <span class="dots"></span>
+      <span class="performer-piece">The Paratrooper</span>
+    </li>
+    <li class="performer">
+      <span class="performer-number">13.</span>
+      <span class="performer-name">Summer-Skye <span class="performer-age">(8)</span></span>
+      <span class="dots"></span>
+      <span class="performer-piece">Down a River</span>
+    </li>
+    <li class="performer">
+      <span class="performer-number">14.</span>
+      <span class="performer-name">Maria-Victoria <span class="performer-age">(6)</span></span>
+      <span class="dots"></span>
+      <span class="performer-piece">The Paratrooper</span>
+    </li>
+    <li class="performer">
+      <span class="performer-number">15.</span>
+      <span class="performer-name">Dominykas <span class="performer-age">(10)</span></span>
+      <span class="dots"></span>
+      <span class="performer-piece">Yankee Doodle</span>
+    </li>
+    <li class="performer">
+      <span class="performer-number">16.</span>
+      <span class="performer-name">Fabio <span class="performer-age">(11)</span></span>
+      <span class="dots"></span>
+      <span class="performer-piece">On the Levee</span>
+    </li>
+    <li class="performer">
+      <span class="performer-number">17.</span>
+      <span class="performer-name">Elijah <span class="performer-age">(11)</span></span>
+      <span class="dots"></span>
+      <span class="performer-piece">Wallace and Gromit</span>
+    </li>
+    <li class="performer">
+      <span class="performer-number">18.</span>
+      <span class="performer-name">Iman <span class="performer-age">(11)</span></span>
+      <span class="dots"></span>
+      <span class="performer-piece">Bluebird</span>
+    </li>
+  </ol>
+
+  <div class="footer">
+    <div class="footer-ornament">&#9835; &#10045; &#9835;</div>
+    <p>
+      Please hold your applause until each performer has finished their piece.<br>
+      Photography is welcome — please ensure devices are on silent.
+    </p>
+    <div class="thank-you">Thank You for Coming!</div>
+  </div>
+
+</div>
+
+</body>
+</html>
