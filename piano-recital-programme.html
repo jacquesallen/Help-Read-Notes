@@ -25,19 +25,21 @@
 
   .programme {
     width: 210mm;
-    min-height: 297mm;
+    height: 297mm;
     background: #fffef9;
-    padding: 50px 60px 40px;
+    padding: 36px 55px 30px;
     position: relative;
     overflow: hidden;
     box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
   }
 
   /* Decorative border */
   .programme::before {
     content: '';
     position: absolute;
-    top: 18px; left: 18px; right: 18px; bottom: 18px;
+    top: 14px; left: 14px; right: 14px; bottom: 14px;
     border: 2px solid #b8960c;
     border-radius: 4px;
     pointer-events: none;
@@ -46,7 +48,7 @@
   .programme::after {
     content: '';
     position: absolute;
-    top: 22px; left: 22px; right: 22px; bottom: 22px;
+    top: 18px; left: 18px; right: 18px; bottom: 18px;
     border: 1px solid #d4b94e;
     border-radius: 3px;
     pointer-events: none;
@@ -55,58 +57,58 @@
   /* Header section */
   .header {
     text-align: center;
-    margin-bottom: 10px;
-    padding-bottom: 20px;
+    margin-bottom: 6px;
+    padding-bottom: 6px;
   }
 
   .music-symbol {
-    font-size: 36px;
+    font-size: 28px;
     color: #b8960c;
     letter-spacing: 12px;
-    margin-bottom: 8px;
+    margin-bottom: 4px;
   }
 
   .school-name {
     font-family: 'Playfair Display', Georgia, serif;
-    font-size: 15px;
+    font-size: 13px;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 4px;
     color: #6b5a3e;
-    margin-bottom: 16px;
+    margin-bottom: 8px;
   }
 
   .presents {
     font-family: 'Lora', Georgia, serif;
     font-style: italic;
-    font-size: 13px;
+    font-size: 12px;
     color: #8a7a60;
-    margin-bottom: 14px;
+    margin-bottom: 6px;
   }
 
   .title {
     font-family: 'Great Vibes', cursive;
-    font-size: 52px;
+    font-size: 44px;
     color: #2c2419;
-    line-height: 1.2;
-    margin-bottom: 6px;
+    line-height: 1.15;
+    margin-bottom: 4px;
   }
 
   .subtitle {
     font-family: 'Playfair Display', Georgia, serif;
-    font-size: 13px;
+    font-size: 11px;
     letter-spacing: 3px;
     text-transform: uppercase;
     color: #8a7a60;
-    margin-bottom: 18px;
+    margin-bottom: 10px;
   }
 
   .event-details {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 20px;
-    font-size: 13px;
+    gap: 16px;
+    font-size: 12px;
     color: #5a4e3c;
   }
 
@@ -119,8 +121,8 @@
   .divider-ornament {
     text-align: center;
     color: #b8960c;
-    font-size: 20px;
-    margin: 16px 0;
+    font-size: 16px;
+    margin: 8px 0;
     letter-spacing: 8px;
   }
 
@@ -128,12 +130,12 @@
   .programme-heading {
     text-align: center;
     font-family: 'Playfair Display', Georgia, serif;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 5px;
     color: #6b5a3e;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
   }
 
   .performers {
@@ -145,29 +147,29 @@
   .performer {
     display: flex;
     align-items: baseline;
-    padding: 7px 0;
-    font-size: 13.5px;
-    line-height: 1.5;
+    padding: 4.5px 0;
+    font-size: 12.5px;
+    line-height: 1.4;
   }
 
   .performer-number {
     flex-shrink: 0;
-    width: 28px;
+    width: 26px;
     font-family: 'Playfair Display', Georgia, serif;
     font-weight: 600;
     color: #b8960c;
-    font-size: 13px;
+    font-size: 12px;
   }
 
   .performer-name {
     flex-shrink: 0;
     font-weight: 500;
     color: #2c2419;
-    min-width: 160px;
+    min-width: 155px;
   }
 
   .performer-age {
-    font-size: 11.5px;
+    font-size: 10.5px;
     color: #9a8b70;
     font-style: italic;
     margin-left: 2px;
@@ -176,8 +178,8 @@
   .dots {
     flex: 1;
     border-bottom: 1px dotted #cdbfa3;
-    margin: 0 8px;
-    min-width: 20px;
+    margin: 0 6px;
+    min-width: 16px;
     position: relative;
     top: -3px;
   }
@@ -192,8 +194,8 @@
   /* Interval */
   .interval {
     text-align: center;
-    margin: 14px 0;
-    padding: 8px 0;
+    margin: 8px 0;
+    padding: 4px 0;
     position: relative;
   }
 
@@ -212,7 +214,7 @@
 
   .interval span {
     font-family: 'Playfair Display', Georgia, serif;
-    font-size: 12px;
+    font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 4px;
     color: #8a7a60;
@@ -224,30 +226,30 @@
 
   /* Footer */
   .footer {
+    margin-top: auto;
     text-align: center;
-    margin-top: 24px;
-    padding-top: 16px;
+    padding-top: 10px;
   }
 
   .footer-ornament {
     color: #b8960c;
-    font-size: 18px;
+    font-size: 15px;
     letter-spacing: 6px;
-    margin-bottom: 12px;
+    margin-bottom: 6px;
   }
 
   .footer p {
-    font-size: 11.5px;
+    font-size: 10.5px;
     color: #8a7a60;
-    line-height: 1.8;
+    line-height: 1.7;
     font-style: italic;
   }
 
   .footer .thank-you {
     font-family: 'Great Vibes', cursive;
-    font-size: 26px;
+    font-size: 22px;
     color: #6b5a3e;
-    margin-top: 10px;
+    margin-top: 6px;
     font-style: normal;
   }
 
@@ -261,7 +263,7 @@
       box-shadow: none;
       width: 100%;
       height: 100%;
-      padding: 45px 55px 35px;
+      padding: 36px 50px 28px;
     }
   }
 </style>
