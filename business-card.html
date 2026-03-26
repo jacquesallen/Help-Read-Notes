@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jacques Allen - Business Card</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Noto+Sans+JP:wght@300;400;500&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f0ece4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            font-family: 'Cormorant Garamond', serif;
+            gap: 60px;
+            padding: 40px 20px;
+        }
+
+        h2.side-label {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            font-size: 14px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #999;
+            margin-bottom: -40px;
+        }
+
+        .card {
+            width: 91mm;   /* Standard business card */
+            height: 55mm;
+            background: #fffdf8;
+            border-radius: 2px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* ── FRONT (English) ── */
+        .card-front {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 20px 24px;
+            height: 100%;
+        }
+
+        .card-front::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, #1a1a2e, #3d2c5e, #1a1a2e);
+        }
+
+        .card-front .accent-line {
+            position: absolute;
+            bottom: 16px;
+            right: 24px;
+            width: 40px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #3d2c5e);
+        }
+
+        .music-symbol {
+            position: absolute;
+            top: 14px;
+            right: 20px;
+            font-size: 22px;
+            color: #d4cfc5;
+            opacity: 0.6;
+        }
+
+        .name {
+            font-size: 18px;
+            font-weight: 500;
+            letter-spacing: 2.5px;
+            color: #1a1a2e;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .title {
+            font-size: 9.5px;
+            font-weight: 300;
+            letter-spacing: 1.8px;
+            color: #6b5b7b;
+            text-transform: uppercase;
+            margin-bottom: 3px;
+        }
+
+        .role {
+            font-size: 8px;
+            font-weight: 300;
+            font-style: italic;
+            letter-spacing: 0.8px;
+            color: #999;
+            margin-bottom: 14px;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 3px 10px;
+            align-items: center;
+        }
+
+        .contact-grid .label {
+            font-size: 6.5px;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #3d2c5e;
+        }
+
+        .contact-grid .value {
+            font-size: 8px;
+            font-weight: 300;
+            color: #444;
+            letter-spacing: 0.5px;
+        }
+
+        /* ── BACK (Japanese) ── */
+        .card-back {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px 24px;
+            height: 100%;
+            background: linear-gradient(160deg, #1a1a2e 0%, #2d2347 50%, #1a1a2e 100%);
+            color: #fffdf8;
+        }
+
+        .card-back::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            border: 0.5px solid rgba(255,253,248,0.06);
+            border-radius: 50%;
+        }
+
+        .card-back::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120px;
+            height: 120px;
+            border: 0.5px solid rgba(255,253,248,0.03);
+            border-radius: 50%;
+        }
+
+        .name-jp {
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 20px;
+            font-weight: 400;
+            letter-spacing: 8px;
+            margin-bottom: 6px;
+            color: #fffdf8;
+            position: relative;
+        }
+
+        .title-jp {
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 8.5px;
+            font-weight: 300;
+            letter-spacing: 3px;
+            color: rgba(255,253,248,0.6);
+            margin-bottom: 4px;
+            position: relative;
+        }
+
+        .role-jp {
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 7.5px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            color: rgba(255,253,248,0.4);
+            margin-bottom: 16px;
+            position: relative;
+        }
+
+        .divider-jp {
+            width: 30px;
+            height: 0.5px;
+            background: rgba(255,253,248,0.2);
+            margin-bottom: 14px;
+            position: relative;
+        }
+
+        .contact-jp {
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 7px;
+            font-weight: 300;
+            letter-spacing: 1px;
+            color: rgba(255,253,248,0.5);
+            line-height: 1.8;
+            position: relative;
+        }
+
+        .contact-jp span {
+            display: block;
+        }
+
+        /* ── Print styles ── */
+        @media print {
+            body {
+                background: white;
+                gap: 10mm;
+            }
+            h2.side-label {
+                display: none;
+            }
+            .card {
+                box-shadow: none;
+                border: 0.5px solid #ddd;
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h2 class="side-label">Front &mdash; English</h2>
+
+    <div class="card">
+        <div class="card-front">
+            <div class="music-symbol">&#9835;</div>
+            <div class="name">Jacques Allen</div>
+            <div class="title">Composer &middot; Pianist &middot; Organist</div>
+            <div class="role">Director of Music, St Margaret's Catholic Church</div>
+            <div class="contact-grid">
+                <span class="label">Email</span>
+                <span class="value">[email protected]</span>
+                <span class="label">Tel</span>
+                <span class="value">+44 7804 690 824</span>
+                <span class="label">Web</span>
+                <span class="value">jacquesallen.com</span>
+                <span class="label">Insta</span>
+                <span class="value">@jacquesallenmusic</span>
+            </div>
+            <div class="accent-line"></div>
+        </div>
+    </div>
+
+    <h2 class="side-label">Back &mdash; Japanese</h2>
+
+    <div class="card">
+        <div class="card-back">
+            <div class="name-jp">ジャック・アレン</div>
+            <div class="title-jp">作曲家 &middot; ピアニスト &middot; オルガニスト</div>
+            <div class="role-jp">聖マーガレット・カトリック教会 音楽監督</div>
+            <div class="divider-jp"></div>
+            <div class="contact-jp">
+                <span>[email protected]</span>
+                <span>+44 7804 690 824</span>
+                <span>jacquesallen.com</span>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
