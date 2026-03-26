@@ -7,14 +7,10 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Noto+Sans+JP:wght@300;400;500&display=swap');
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            background: #f0ece4;
+            background: #e8e4dc;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -22,216 +18,245 @@
             min-height: 100vh;
             font-family: 'Cormorant Garamond', serif;
             gap: 60px;
-            padding: 40px 20px;
+            padding: 60px 20px;
         }
 
         h2.side-label {
             font-family: 'Cormorant Garamond', serif;
             font-weight: 300;
-            font-size: 14px;
-            letter-spacing: 3px;
+            font-size: 13px;
+            letter-spacing: 4px;
             text-transform: uppercase;
-            color: #999;
+            color: #aaa;
             margin-bottom: -40px;
         }
 
+        /* ─── Card Shell ─── */
         .card {
-            width: 91mm;   /* Standard business card */
+            width: 91mm;
             height: 55mm;
-            background: #fffdf8;
-            border-radius: 2px;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04);
+            border-radius: 1.5px;
+            box-shadow:
+                0 1px 3px rgba(0,0,0,0.04),
+                0 4px 16px rgba(0,0,0,0.06),
+                0 12px 40px rgba(0,0,0,0.04);
             position: relative;
             overflow: hidden;
         }
 
-        /* ── FRONT (English) ── */
+        /* ════════════════════════════════════════
+           FRONT — English
+           ════════════════════════════════════════ */
         .card-front {
+            background: #faf8f4;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 20px 24px;
+            padding: 0 28px;
             height: 100%;
+            position: relative;
         }
 
+        /* Gold foil edge — left */
         .card-front::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
+            top: 0; left: 0;
+            width: 3px;
             height: 100%;
-            background: linear-gradient(180deg, #1a1a2e, #3d2c5e, #1a1a2e);
+            background: linear-gradient(
+                180deg,
+                #c9a84c 0%, #e2cc7e 15%, #a07830 30%,
+                #d4b85c 50%,
+                #a07830 70%, #e2cc7e 85%, #c9a84c 100%
+            );
         }
 
-        .card-front .accent-line {
+        /* Subtle staff lines — watermark across middle */
+        .staff-lines {
             position: absolute;
-            bottom: 16px;
-            right: 24px;
-            width: 40px;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, #3d2c5e);
+            top: 50%;
+            right: 16px;
+            transform: translateY(-50%);
+            width: 60px;
+            height: 40px;
+            opacity: 0.06;
+        }
+        .staff-lines line {
+            stroke: #1a1a2e;
+            stroke-width: 0.6;
         }
 
-        .music-symbol {
+        /* SVG treble clef watermark */
+        .treble-clef {
             position: absolute;
-            top: 14px;
-            right: 20px;
-            font-size: 22px;
-            color: #d4cfc5;
-            opacity: 0.6;
+            top: 50%;
+            right: 26px;
+            transform: translateY(-52%);
+            width: 32px;
+            height: 50px;
+            opacity: 0.055;
         }
 
         .name {
-            font-size: 18px;
+            font-size: 17.5px;
             font-weight: 500;
-            letter-spacing: 2.5px;
-            color: #1a1a2e;
+            letter-spacing: 3px;
+            color: #1a1a1a;
             text-transform: uppercase;
-            margin-bottom: 4px;
+            margin-bottom: 5px;
         }
 
         .title {
-            font-size: 9.5px;
-            font-weight: 300;
-            letter-spacing: 1.8px;
-            color: #6b5b7b;
+            font-size: 8.5px;
+            font-weight: 400;
+            letter-spacing: 2.5px;
+            color: #8a7a5a;
             text-transform: uppercase;
-            margin-bottom: 3px;
+            margin-bottom: 16px;
         }
 
-        .role {
-            font-size: 8px;
-            font-weight: 300;
-            font-style: italic;
-            letter-spacing: 0.8px;
-            color: #999;
+        /* Gold hairline separator */
+        .separator {
+            width: 28px;
+            height: 0.5px;
+            background: linear-gradient(90deg, #c9a84c, #e2cc7e, #c9a84c);
             margin-bottom: 14px;
         }
 
-        .contact-grid {
-            display: grid;
-            grid-template-columns: auto 1fr;
-            gap: 3px 10px;
-            align-items: center;
+        .contact-block {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5px;
         }
 
-        .contact-grid .label {
-            font-size: 6.5px;
-            font-weight: 500;
-            letter-spacing: 1.5px;
+        .contact-row {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+        }
+
+        .contact-row .label {
+            font-size: 5.5px;
+            font-weight: 600;
+            letter-spacing: 2px;
             text-transform: uppercase;
-            color: #3d2c5e;
+            color: #b89d5c;
+            min-width: 24px;
         }
 
-        .contact-grid .value {
-            font-size: 8px;
+        .contact-row .value {
+            font-size: 7.5px;
             font-weight: 300;
-            color: #444;
-            letter-spacing: 0.5px;
+            color: #555;
+            letter-spacing: 0.6px;
         }
 
-        /* ── BACK (Japanese) ── */
+        /* ════════════════════════════════════════
+           BACK — Japanese
+           ════════════════════════════════════════ */
         .card-back {
+            background: #0f0f18;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 20px 24px;
+            padding: 20px 28px;
             height: 100%;
-            background: linear-gradient(160deg, #1a1a2e 0%, #2d2347 50%, #1a1a2e 100%);
-            color: #fffdf8;
+            position: relative;
         }
 
-        .card-back::before {
-            content: '';
+        /* Monogram watermark */
+        .monogram {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 80px;
-            height: 80px;
-            border: 0.5px solid rgba(255,253,248,0.06);
-            border-radius: 50%;
+            opacity: 0.04;
         }
 
-        .card-back::after {
-            content: '';
+        .monogram text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 80px;
+            font-weight: 300;
+            fill: #fff;
+            letter-spacing: -4px;
+        }
+
+        /* Concentric gold rings */
+        .ring {
             position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%);
-            width: 120px;
-            height: 120px;
-            border: 0.5px solid rgba(255,253,248,0.03);
             border-radius: 50%;
+            border: 0.3px solid rgba(201,168,76,0.12);
         }
+        .ring-1 { width: 70px; height: 70px; transform: translate(-50%,-50%); }
+        .ring-2 { width: 110px; height: 110px; transform: translate(-50%,-50%); }
+        .ring-3 { width: 160px; height: 160px; transform: translate(-50%,-50%); }
+
+        /* Gold corner accents */
+        .corner {
+            position: absolute;
+            width: 16px;
+            height: 16px;
+        }
+        .corner svg line {
+            stroke: rgba(201,168,76,0.18);
+            stroke-width: 0.5;
+        }
+        .corner-tl { top: 10px; left: 10px; }
+        .corner-br { bottom: 10px; right: 10px; transform: rotate(180deg); }
 
         .name-jp {
             font-family: 'Noto Sans JP', sans-serif;
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 400;
-            letter-spacing: 8px;
-            margin-bottom: 6px;
-            color: #fffdf8;
+            letter-spacing: 10px;
+            padding-left: 10px; /* optical center with letter-spacing */
+            color: #f0ece0;
+            margin-bottom: 7px;
             position: relative;
         }
 
         .title-jp {
             font-family: 'Noto Sans JP', sans-serif;
-            font-size: 8.5px;
-            font-weight: 300;
-            letter-spacing: 3px;
-            color: rgba(255,253,248,0.6);
-            margin-bottom: 4px;
-            position: relative;
-        }
-
-        .role-jp {
-            font-family: 'Noto Sans JP', sans-serif;
             font-size: 7.5px;
             font-weight: 300;
-            letter-spacing: 2px;
-            color: rgba(255,253,248,0.4);
-            margin-bottom: 16px;
+            letter-spacing: 3.5px;
+            color: rgba(201,168,76,0.55);
+            margin-bottom: 18px;
             position: relative;
         }
 
         .divider-jp {
-            width: 30px;
+            width: 24px;
             height: 0.5px;
-            background: rgba(255,253,248,0.2);
-            margin-bottom: 14px;
+            background: linear-gradient(90deg, transparent, rgba(201,168,76,0.3), transparent);
+            margin-bottom: 16px;
             position: relative;
         }
 
         .contact-jp {
             font-family: 'Noto Sans JP', sans-serif;
-            font-size: 7px;
+            font-size: 6.5px;
             font-weight: 300;
-            letter-spacing: 1px;
-            color: rgba(255,253,248,0.5);
-            line-height: 1.8;
+            letter-spacing: 1.2px;
+            color: rgba(240,236,224,0.35);
+            line-height: 2;
             position: relative;
         }
 
-        .contact-jp span {
-            display: block;
-        }
+        .contact-jp span { display: block; }
 
-        /* ── Print styles ── */
+        /* ─── Print ─── */
         @media print {
-            body {
-                background: white;
-                gap: 10mm;
-            }
-            h2.side-label {
-                display: none;
-            }
+            body { background: white; gap: 10mm; }
+            h2.side-label { display: none; }
             .card {
                 box-shadow: none;
-                border: 0.5px solid #ddd;
+                border: 0.25px solid #ccc;
                 page-break-inside: avoid;
             }
         }
@@ -243,21 +268,49 @@
 
     <div class="card">
         <div class="card-front">
-            <div class="music-symbol">&#9835;</div>
+
+            <!-- Staff lines watermark -->
+            <svg class="staff-lines" viewBox="0 0 60 40" preserveAspectRatio="none">
+                <line x1="0" y1="8"  x2="60" y2="8"/>
+                <line x1="0" y1="14" x2="60" y2="14"/>
+                <line x1="0" y1="20" x2="60" y2="20"/>
+                <line x1="0" y1="26" x2="60" y2="26"/>
+                <line x1="0" y1="32" x2="60" y2="32"/>
+            </svg>
+
+            <!-- Treble clef watermark -->
+            <svg class="treble-clef" viewBox="0 0 40 65" fill="#1a1a2e">
+                <path d="M20.5 0 C20.5 0 21 4 21 8 C21 12 19 16 17 20
+                    C15 24 13 28 13 32 C13 38 16 42 20 42
+                    C24 42 27 38 27 34 C27 30 24 27 21 27
+                    C18 27 16 29 16 32 C16 34 17 36 19 37
+                    M20 42 C20 42 20 48 20 52 C20 58 18 62 16 65
+                    M20 42 C24 42 28 39 28 34 C28 28 24 25 20 25
+                    C16 25 12 29 12 34 C12 40 17 44 22 44
+                    C28 44 32 38 32 32 C32 24 27 18 22 14"/>
+            </svg>
+
             <div class="name">Jacques Allen</div>
             <div class="title">Composer &middot; Pianist &middot; Organist</div>
-            <div class="role">Director of Music, St Margaret's Catholic Church</div>
-            <div class="contact-grid">
-                <span class="label">Email</span>
-                <span class="value">[email protected]</span>
-                <span class="label">Tel</span>
-                <span class="value">+44 7804 690 824</span>
-                <span class="label">Web</span>
-                <span class="value">jacquesallen.com</span>
-                <span class="label">Insta</span>
-                <span class="value">@jacquesallenmusic</span>
+            <div class="separator"></div>
+            <div class="contact-block">
+                <div class="contact-row">
+                    <span class="label">Email</span>
+                    <span class="value">jacquesallen@hotmail.com</span>
+                </div>
+                <div class="contact-row">
+                    <span class="label">Tel</span>
+                    <span class="value">+44 7804 690 824</span>
+                </div>
+                <div class="contact-row">
+                    <span class="label">Web</span>
+                    <span class="value">jacquesallen.com</span>
+                </div>
+                <div class="contact-row">
+                    <span class="label">Insta</span>
+                    <span class="value">@jacquesallenmusic</span>
+                </div>
             </div>
-            <div class="accent-line"></div>
         </div>
     </div>
 
@@ -265,12 +318,36 @@
 
     <div class="card">
         <div class="card-back">
+
+            <!-- JA monogram watermark -->
+            <svg class="monogram" width="120" height="80" viewBox="0 0 120 80">
+                <text x="50%" y="58" text-anchor="middle">JA</text>
+            </svg>
+
+            <!-- Concentric gold rings -->
+            <div class="ring ring-1"></div>
+            <div class="ring ring-2"></div>
+            <div class="ring ring-3"></div>
+
+            <!-- Corner accents -->
+            <div class="corner corner-tl">
+                <svg viewBox="0 0 16 16" width="16" height="16">
+                    <line x1="0" y1="0" x2="16" y2="0"/>
+                    <line x1="0" y1="0" x2="0" y2="16"/>
+                </svg>
+            </div>
+            <div class="corner corner-br">
+                <svg viewBox="0 0 16 16" width="16" height="16">
+                    <line x1="0" y1="0" x2="16" y2="0"/>
+                    <line x1="0" y1="0" x2="0" y2="16"/>
+                </svg>
+            </div>
+
             <div class="name-jp">ジャック・アレン</div>
             <div class="title-jp">作曲家 &middot; ピアニスト &middot; オルガニスト</div>
-            <div class="role-jp">聖マーガレット・カトリック教会 音楽監督</div>
             <div class="divider-jp"></div>
             <div class="contact-jp">
-                <span>[email protected]</span>
+                <span>jacquesallen@hotmail.com</span>
                 <span>+44 7804 690 824</span>
                 <span>jacquesallen.com</span>
             </div>
